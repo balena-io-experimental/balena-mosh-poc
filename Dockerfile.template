@@ -1,0 +1,17 @@
+# base-image for node on any machine using a template variable,
+# see more about dockerfile templates here: http://docs.resin.io/deployment/docker-templates/
+# and about resin base images here: http://docs.resin.io/runtime/resin-base-images/
+# Note the node:slim image doesn't have node-gyp
+FROM resin/%%RESIN_MACHINE_NAME%%-alpine:3.7
+
+# Install mosh
+RUN apk add --no-cache mosh
+
+# Defines our working directory in container
+WORKDIR /usr/apps
+
+# Install ngrok
+ADD ngrok /usr/apps/
+
+# Enable systemd init system in container
+ENV INITSYSTEM on
