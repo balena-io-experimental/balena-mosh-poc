@@ -5,7 +5,10 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-alpine:3.7
 
 # Install mosh
-RUN apk add --no-cache mosh
+RUN apk add --no-cache mosh openssh
+RUN rc-update add sshd
+
+RUN echo "PermitTunnel yes" >> /etc/ssh/sshd_config
 
 # Defines our working directory in container
 WORKDIR /usr/apps
